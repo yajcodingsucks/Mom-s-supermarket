@@ -15,6 +15,7 @@ Barcode input works three ways:
 
 import os
 import sqlite3
+import sys
 import tkinter as tk
 from datetime import date, datetime, timedelta
 from tkinter import messagebox, ttk
@@ -34,7 +35,13 @@ GRID = "#b7c9e2"       # table grid lines
 GREEN = "#1b5e20"      # payments / paid off
 GREEN_BG = "#c8e6c9"
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "shop.db")
+# The database lives next to the app: next to ShopManager.exe when packaged
+# (e.g. on the pendrive), or next to this .py file when run with Python.
+if getattr(sys, "frozen", False):
+    APP_DIR = os.path.dirname(os.path.abspath(sys.executable))
+else:
+    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(APP_DIR, "shop.db")
 
 
 def money(x):
